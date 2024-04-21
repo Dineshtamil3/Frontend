@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/payment.css')}}">
+
+</head>
+
+<body>
+    <div class="container">
+        <form action="/Thankyou" method="GET">
+            <div class="row">
+                <div class="col">
+                    <h3 class="title">Billing Address</h3>
+                    <div class="input-box">
+                        <span>Full Name :</span>
+                        <input type="text" placeholder="Name" required>
+                    </div>
+                    <div class="input-box">
+                        <span>Email :</span>
+                        <input type="email" placeholder="xxx@gmail.com" required>
+                    </div>
+                    <div class="input-box">
+                        <span>Address :</span>
+                        <input type="text" placeholder="Address" required>
+                    </div>
+                    <div class="input-box">
+                        <span>City :</span>
+                        <input type="text" placeholder="City name" required>
+                    </div>
+                    <div class="input-box flex">
+                        <div class="input-box">
+                            <span>State :</span>
+                            <input type="text" placeholder="State" required>
+                        </div>
+                        <div class="input-box">
+                            <span>Pin code :</span>
+                            <input type="number" placeholder="Pin code" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <h3 class="title">Payment</h3>
+                    <div class="input-box">
+                        <span>Cards Accepted :</span>
+                        <img src="/static/images/imgcards.png" alt="">
+                    </div>
+                    <div class="input-box">
+                        <span>Name on Card :</span>
+                        <input type="text" placeholder="Name on card" required>
+                    </div>
+                    <div class="input-box">
+                        <span>Credit Card Number :</span>
+                        <input type="number" placeholder="Card Number" required>
+                    </div>
+                    <div class="input-box">
+                        <span>Exp. Month :</span>
+                        <input type="text" placeholder="Month" required>
+                    </div>
+                    <div class="input-box flex">
+                        <div class="input-box">
+                            <span>Exp. Year :</span>
+                            <input type="number" placeholder="20xx" required>
+                        </div>
+                        <div class="input-box">
+                            <span>CVV :</span>
+                            <input type="number" placeholder="xxx" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+body{
+    background-size: cover;
+    background-image: url('../images/');
+    height: 100vh;
+    background-repeat: no-repeat;
+    text-align: center;
+    /* justify-content: center; */
+    -webkit-text-fill-color:yellow;
+    text-shadow: 1px -2px 1px;
+    font-family:Georgia, 'Times New Roman', Times, serif ; 
+    /* display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; */
+}
+.center{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+
+}
+.logo-icon{
+    position: absolute;
+    top: 80px;
+    right: 50px;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: black;
+}
+.logo-icon1{
+    position: absolute;
+    top: 120px;
+    right: 50px;
+    margin-top: 100px;
+    margin-right: 10px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: black;
+}
+.logo-icon2{
+    position: absolute;
+    top: 240px;
+    right: 50px;
+    margin-top: 100px;
+    margin-right: 10px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: black;
+}
+.logo-icon3{
+    position: absolute;
+    top: 360px;
+    right: 50px;
+    margin-top: 100px;
+    margin-right: 10px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: black;
+}
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.row{
+   margin-bottom: 2px; 
+   margin: 5;
+   color: black;
+}
+.h4{
+    /* color: red; */
+    -webkit-text-fill-color: green;
+}
+.p{
+    -webkit-text-fill-color: red;
+    color: black;
+}
+    /* color: red; */
+    /* -webkit-text-fill-color: red;

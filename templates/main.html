@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+</head>
+
+<body class="dis">
+
+    <nav>
+        <h1 class="center">Delicious Restaurant</h1>
+        <img src="../static/images/logo.png" alt="logo" class="logo">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">careers</a></li>
+            <li><a href="#">Contact</a></li>
+            <!-- <li><a class="text" href="#" id="fun1" onclick="details()">Contact</a></li> -->
+        </ul>
+        <img src="../static/images/userlogo.jpg" class="user" onclick="toggleMenu()">
+
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="../static/images/userlogo.jpg" alt="User Profile">
+                    <h3>{{session.get('user_full_name','Guest')}}</h3>
+                </div>
+                <hr>
+                <a href="#" class="sub-menu-link">
+                    <img src="../static/images/profile.png">
+                    <p>Edit Profile</p>
+                    <span>></span>
+                </a>
+                <a href="#" class="sub-menu-link">
+                    <img src="../static/images/settings.png">
+                    <p>Setting & Privacy</p>
+                    <span>></span>
+                </a>
+                <a href="#" class="sub-menu-link">
+                    <img src="../static/images/Help.png">
+                    <p>Help & Support</p>
+                    <span>></span>
+                </a>
+                <a href="/Welcome" class="sub-menu-link">
+                    <img src="../static/images/logout.jpeg">
+                    <p>Logout</p>
+                    <span>></span>
+                </a>
+
+            </div>
+        </div>
+    </nav>
+
+    <div style="display: flex; justify-content: flex-end; padding-right: 20px;">
+        <a href="/Added_items" ,method='POST'>
+            <img class="ml-5" src="../static/images/Add_item.png" alt="card" style="width: 80px;" id="add-item-icon">
+            <span id="notification-badge" class="badge badge-danger" style="display: none;">1</span>
+            </button>
+        </a>
+    </div>
+
+
+    <script>
+
+        let subMenu = document.getElementById("subMenu")
+        function toggleMenu() {
+
+            subMenu.classList.toggle("open-menu")
+        }
+
+
+
+    </script>
+
+    <div class="text">
+        <h1 class="text-center"><u> Morning Tiffin</u></h1>
+        <div class="container d-flex">
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : aaa</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success" data-item-name="xxx" data-item-price="99">Add to card </button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+                            
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        let existingItem=cart.find(item => item.name===itemName)
+                                        if (existingItem){
+                                            existingItem.quantity +=1;
+                                        }else{
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+                                        cart.push(item);
+                                    }
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+                                        const totalPrice = itemPrice * (existingItem ? existingItem.quantity : 1);
+                                        const url = `added_items.html?itemName=${encodeURIComponent(itemName)}&itemPrice=${itemPrice}&quantity=${existingItem ? existingItem.quantity : 1}&total=${totalPrice}`;
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : bbb</p>
+                        <p>Price : Rs.99</p>
+
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        let existingItem=cart.find(item => item.name===itemName)
+                                        if (existingItem){
+                                            existingItem.quantity +=1;
+                                        }else{
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+                                        cart.push(item);
+                                    }
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'order.html';
+                                    });
+                                });
+                            });
+                        </script>
+                        
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : ccc</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container d-flex">
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="text">
+        <h1 class="text-center"><u> Afternoon Lunch </u></h1>
+        <div class="container d-flex">
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container d-flex">
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="text">
+        <h1 class="text-center"><u> Night Dinner </u></h1>
+        <div class="container d-flex">
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container d-flex">
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mt-5 ms-5">
+                <div class="card-content d-flex">
+                    <img class="card-img-middle rounded-circle mt-3 m-3" src="../static/images/chicken roll.webp"
+                        alt="img">
+                    <div class="details">
+                        <p>Item Name : xxx</p>
+                        <p>Price : Rs.99</p>
+                        <a href="/order" class="btn btn-success">Order</a>
+                        <button class="btn btn-success">Add to card</button>
+                        <script>
+
+                            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const addToCartButtons = document.querySelectorAll('button[data-item-name][data-item-price]');
+
+                                addToCartButtons.forEach(function (button) {
+                                    button.addEventListener('click', function (event) {
+
+                                        const itemName = button.getAttribute('data-item-name');
+                                        const itemPrice = parseFloat(button.getAttribute('data-item-price'));
+
+                                        const item = {
+                                            sNo: cart.length + 1,
+                                            name: itemName,
+                                            price: itemPrice,
+                                            quantity: 1
+                                        };
+
+
+                                        cart.push(item);
+
+
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+
+                                        window.location.href = 'added_items.html';
+                                    });
+                                });
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

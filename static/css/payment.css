@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    min-height: 100vh;
+    background: gray;
+}
+
+.container form {
+    background: white;
+    width: 900px;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row .col {
+    flex: 1 1 50%;
+    padding: 0 10px;
+}
+
+.col {
+    padding: 0 10px;
+}
+
+.col .title {
+    font-size: 20px;
+    color: green;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.col .input-box {
+    margin: 10px 0;
+}
+
+.input-box span {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.col .flex {
+    display: flex;
+    gap: 15px;
+}
+
+.flex .input-box {
+    margin-top: 5px;
+}
+
+form .btn {
+    width: 100%;
+    padding: 12px;
+    background: #8175d3;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    font-size: 17px;
+    color: #fff;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+form .btn:hover {
+    background: blueviolet;
+}
+
+.input-box img {
+    height: 30px;
+    margin-top: 5px;
+    filter: drop-shadow(0 0 1px #000);
+}
+.btn {
+    display: inline-block;
+    padding: 12px;
+    background: #8175d3;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    font-size: 17px;
+    color: #fff;
+    text-decoration: none; /* For removing underline */
+    text-align: center; /* Align text in the center */
+    width: 200px; /* Set a width to the button */
+}
+
+.btn:hover {
+    background: blueviolet;
+}
+
